@@ -1,17 +1,49 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Box, Button, Paper, TextField} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
+import {MessageType} from "../../types";
 
-const Form = () => {
+interface Props {
+  onSubmit: (message: MessageType) => void;
+}
+
+const Form:React.FC<Props> = ({onSubmit}) => {
+  const [value, setValue] = useState<MessageType>({
+    author: '',
+    message: '',
+  });
+
+  const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const name = e.target.name;
+
+    setValue(prev => ({...prev, [name]:value}))
+  };
+
+  const onFormSubmit = (e:React.FormEvent) => {
+    e.preventDefault();
+    onSubmit({...value});
+    setValue({
+      author: '',
+      message: '',
+    })
+  }
+
+
+
   return (
-    <Paper variant="outlined" component='form' sx={{p: 1}}>
+    <Box component='form' sx={{p: 1}} onSubmit={onFormSubmit}>
       <Box component='div' sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
         <TextField
           id="outlined-basic"
           label="Name"
           variant="outlined"
+          name='author'
+          value={value.author}
+          onChange={onChange}
+          required
         />
-        <Button variant="contained" endIcon={<SendIcon />}>
+        <Button variant="contained" endIcon={<SendIcon />} type='submit'>
           Send
         </Button>
       </Box>
@@ -25,8 +57,12 @@ const Form = () => {
         variant="outlined"
         fullWidth
         sx={{mt: 5}}
+        name='message'
+        value={value.message}
+        onChange={onChange}
+        required
       />
-    </Paper>
+    </Box>
   );
 };
 
