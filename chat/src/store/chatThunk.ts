@@ -1,9 +1,9 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axiosApi from "../axiosApi";
-import {MessageType} from "../types";
+import {MessageTypePost} from "../types";
 
-export const postMessages = createAsyncThunk<void, MessageType>(
-  'messages/fetch',
+export const postMessages = createAsyncThunk<void, MessageTypePost>(
+  'messages/post',
   async (message) => {
     await axiosApi.post('/messages', message);
   }

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Box, Button, Paper, TextField} from "@mui/material";
+import {Box, Button, TextField} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import {MessageTypePost} from "../../types";
 
