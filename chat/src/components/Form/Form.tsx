@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {Box, Button, Paper, TextField} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
-import {MessageType} from "../../types";
+import {MessageTypePost} from "../../types";
 
 interface Props {
-  onSubmit: (message: MessageType) => void;
+  onSubmit: (message: MessageTypePost) => void;
 }
 
 const Form:React.FC<Props> = ({onSubmit}) => {
-  const [value, setValue] = useState<MessageType>({
+  const [value, setValue] = useState<MessageTypePost>({
     author: '',
     message: '',
   });
