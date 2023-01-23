@@ -1,7 +1,10 @@
 import {configureStore} from "@reduxjs/toolkit";
+import {messagesReducer} from "../store/ChatSlice";
 
 export const store = configureStore({
-  reducer: {}
+  reducer: {
+    chat: messagesReducer,
+  }
 });
 
 export type RootState = ReturnType<typeof store.getState>
