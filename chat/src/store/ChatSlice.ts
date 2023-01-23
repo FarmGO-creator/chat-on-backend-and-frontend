@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {postMessages} from "./chatThunk";
+import {RootState} from "../app/store";
 
 interface MessagesSliceType {
   loaderPost: boolean;
@@ -28,3 +29,4 @@ const chatSlice = createSlice({
 });
 
 export const messagesReducer = chatSlice.reducer;
+export const loading = (state: RootState) => state.chat.loaderPost;
