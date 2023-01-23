@@ -1,13 +1,17 @@
 import React, {useState} from 'react';
-import {Box, Button, TextField} from "@mui/material";
+import {Box, Button, CircularProgress, TextField} from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import {MessageTypePost} from "../../types";
+import {useAppSelector} from "../../app/hooks";
+import {loading} from "../../store/ChatSlice";
 
 interface Props {
   onSubmit: (message: MessageTypePost) => void;
 }
 
 const Form:React.FC<Props> = ({onSubmit}) => {
+  const btnLoading = useAppSelector(loading)
+
   const [value, setValue] = useState<MessageTypePost>({
     author: '',
     message: '',
@@ -29,8 +33,6 @@ const Form:React.FC<Props> = ({onSubmit}) => {
     })
   }
 
-
-
   return (
     <Box component='form' sx={{p: 1}} onSubmit={onFormSubmit}>
       <Box component='div' sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
@@ -43,8 +45,8 @@ const Form:React.FC<Props> = ({onSubmit}) => {
           onChange={onChange}
           required
         />
-        <Button variant="contained" endIcon={<SendIcon />} type='submit'>
-          Send
+        <Button disabled={btnLoading} variant="contained" endIcon={<SendIcon />} type='submit'>
+          {btnLoading ? <CircularProgress size={20}/> : 'Send'}
         </Button>
       </Box>
 
