@@ -5,11 +5,13 @@ import {randomUUID} from "crypto";
 const filename = 'db.json';
 let dataDb:Messages[] = [];
 
+
 const fileDb = {
   async init() {
     try {
       const fileContent = await fs.readFile(filename);
       dataDb = JSON.parse(fileContent.toString());
+
     }catch (e) {
       dataDb = [];
     }
@@ -36,7 +38,7 @@ const fileDb = {
   },
 
   async save() {
-    return fs.writeFile(filename, JSON.stringify(dataDb));
+    return fs.writeFile(filename, JSON.stringify(dataDb.slice(Math.max(dataDb.length - 30, 0))));
   }
 };
 
