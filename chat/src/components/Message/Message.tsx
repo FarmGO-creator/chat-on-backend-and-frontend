@@ -9,7 +9,7 @@ interface Props {
 
 const Message:React.FC<Props> = ({message}) => {
   let name = message.author;
-  const avatar = name[0] + name[name.length - 1];
+  const avatar = name[0];
 
   return (
     <Paper elevation={2} sx={{display: 'block', position: 'relative', mb: 2}}>
