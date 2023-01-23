@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Paper} from "@mui/material";
+import {Box, LinearProgress, Paper} from "@mui/material";
 import Form from "../../components/Form/Form";
 import Message from "../../components/Message/Message";
 import {useAppDispatch} from "../../app/hooks";
@@ -40,9 +40,11 @@ const Chat = () => {
     <Paper elevation={3} sx={{width: 700, p: 1, minHeight: 700, display: 'flex', flexDirection: "column"}}>
       <Box component='div' sx={{height: 600, overflowY: 'scroll'}}>
         {
-          messages.map(message => (
-            <Message key={message.id} message={message}/>
-          ))
+          messages.length > 0 ? (
+            messages.map(message => (
+              <Message key={message.id} message={message}/>
+            ))
+          ) : <LinearProgress/>
         }
       </Box>
 
