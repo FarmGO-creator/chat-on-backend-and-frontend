@@ -9,25 +9,27 @@ messagesExpress.get('/', async (req, res) => {
   const queryDate = req.query.datetime as string;
   const date = new Date(queryDate);
 
-  if (queryDate !== undefined) {
+  if (queryDate === undefined || queryDate.length === 0) {
+    res.send(messages.slice(Math.max(messages.length - 30, 0)));
+
+  } else {
 
     if (isNaN(date.getDate())) {
       return res.status(400).send({error: 'Введите правильную дату !'})
     }
 
     const filterMessages = messages.filter((message) => message.datetime > queryDate);
-    res.send(filterMessages);
 
-  } else {
-    res.send(messages.slice(Math.max(messages.length -5, 0)));
+    res.send(filterMessages);
   }
+
+
 });
 
 messagesExpress.post('/', async (req, res) => {
   if (req.body.author === '' || req.body.message === '') {
     return res.status(400).send({error: 'Ошибка 404'});
   }
-
 
   const message:MessagesPost = {
     author: req.body.author,
